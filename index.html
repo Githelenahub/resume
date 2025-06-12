@@ -1,161 +1,528 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Helena Chahoud - Community Services Resume</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f1f4f8;
-      color: #2c3e50;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helena Chahoud - Interactive Resume</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    header {
-      background-color: #005b96;
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
-    }
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
 
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 30px 20px;
-    }
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
 
-    .section {
-      margin-bottom: 40px;
-    }
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+            font-weight: bold;
+        }
 
-    h2 {
-      font-size: 1.6rem;
-      margin-bottom: 15px;
-      color: #0073b1;
-      border-bottom: 2px solid #0073b1;
-      padding-bottom: 5px;
-    }
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
 
-    .career-objective, .skill-item, .work-entry, .education-item, .cert-item {
-      background-color: #ffffff;
-      padding: 15px 20px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
 
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #555;
+        }
 
-    button {
-      background-color: #0073b1;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background-color 0.3s;
-    }
+        .nav-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
 
-    button:hover {
-      background-color: #005b96;
-    }
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
 
-    .btn-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-  </style>
-  <script>
-    function scrollToSection(id) {
-      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-    }
-  </script>
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-btn:hover::before {
+            left: 100%;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .content-section {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #764ba2;
+        }
+
+        .objective-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #555;
+            text-align: justify;
+        }
+
+        .education-item, .skill-category, .experience-item {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .education-item:hover, .skill-category:hover, .experience-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-left-color: #764ba2;
+        }
+
+        .education-year, .experience-period {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .education-title, .experience-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .experience-company {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-item {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: scale(1.02);
+        }
+
+        .experience-duties {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .experience-duties li {
+            padding: 8px 0;
+            padding-left: 20px;
+            position: relative;
+            color: #555;
+        }
+
+        .experience-duties li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .certifications {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .cert-item {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cert-item:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .content-section {
+                padding: 25px 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Helena Chahoud</h1>
-    <p>Diploma of Community Services Graduate</p>
-    <div class="btn-group">
-      <button onclick="scrollToSection('objective')">Career Objective</button>
-      <button onclick="scrollToSection('education')">Education</button>
-      <button onclick="scrollToSection('skills')">Skills</button>
-      <button onclick="scrollToSection('work')">Work Experience</button>
-      <button onclick="scrollToSection('certifications')">Certifications</button>
-      <button onclick="scrollToSection('references')">References</button>
+    <div class="container">
+        <div class="header">
+            <div class="profile-img">HC</div>
+            <h1>Helena Chahoud</h1>
+            <p style="font-size: 18px; color: #666; margin-top: 10px;">Community Services Professional</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📱</span>
+                    <span>0403363103</span>
+                </div>
+                <div class="contact-item">
+                    <span>✉️</span>
+                    <span>helena.chahoud91@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <span>📍</span>
+                    <span>Roxburgh Park, VIC</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="nav-btn active" onclick="showSection('objective')">Career Objective</button>
+            <button class="nav-btn" onclick="showSection('education')">Education</button>
+            <button class="nav-btn" onclick="showSection('skills')">Key Skills</button>
+            <button class="nav-btn" onclick="showSection('experience')">Work Experience</button>
+            <button class="nav-btn" onclick="showSection('certifications')">Certifications</button>
+        </div>
+
+        <div id="objective" class="content-section active">
+            <h2>Career Objective</h2>
+            <p class="objective-text">
+                As a committed and empathetic community services student, I bring real-life experience, strong communication skills, and a naturally organised approach to every task. Currently studying a Diploma of Community Services, I have already gained hands-on placement experience supporting clients with professionalism and care. My strengths include cultural awareness, bilingual communication (English/Arabic), attention to detail in administrative work, and a calm, respectful presence. I'm passionate about contributing to inclusive, people-focused environments—especially in roles involving client support, office coordination, or service delivery that values human dignity and trust.
+            </p>
+        </div>
+
+        <div id="education" class="content-section">
+            <h2>Education & Qualifications</h2>
+            <div class="education-item">
+                <div class="education-year">2025 – Current</div>
+                <div class="education-title">Diploma of Community Services (CHC52021)</div>
+            </div>
+            <div class="education-item">
+                <div class="education-year">2024 – Current</div>
+                <div class="education-title">Certificate III in Individual Support (Ageing, Disability)</div>
+            </div>
+            <div class="education-item">
+                <div class="education-year">2024</div>
+                <div class="education-title">Certificate II in Security Operations (CPP20218)</div>
+            </div>
+            <div class="education-item">
+                <div class="education-year">2019</div>
+                <div class="education-title">Certificate I in Café Operations</div>
+            </div>
+            <div class="education-item">
+                <div class="education-year">2016</div>
+                <div class="education-title">Bachelor of Architecture</div>
+                <div style="color: #666; margin-top: 5px;">Damascus University</div>
+            </div>
+        </div>
+
+        <div id="skills" class="content-section">
+            <h2>Key Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">Client Support</h3>
+                    <div class="skill-item">Compassionate and professional client support in culturally diverse settings</div>
+                    <div class="skill-item">Strong face-to-face communication with vulnerable clients and families</div>
+                    <div class="skill-item">Conflict resolution and de-escalation with empathy and respect</div>
+                </div>
+                <div class="skill-category">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">Administrative</h3>
+                    <div class="skill-item">Efficient case note writing, data entry, and file management</div>
+                    <div class="skill-item">Confident using Microsoft Office, email, and databases</div>
+                    <div class="skill-item">High attention to compliance, including WHS standards</div>
+                </div>
+                <div class="skill-category">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">Communication</h3>
+                    <div class="skill-item">Fluent in English and Arabic</div>
+                    <div class="skill-item">Strong cross-cultural communication skills</div>
+                    <div class="skill-item">Professional and empathetic communication</div>
+                </div>
+                <div class="skill-category">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">Professional Values</h3>
+                    <div class="skill-item">Deep understanding of privacy, confidentiality, and ethical practice</div>
+                    <div class="skill-item">Passionate about accessibility, inclusion, and empowerment</div>
+                    <div class="skill-item">Reliable, self-motivated, and committed to ongoing learning</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="experience" class="content-section">
+            <h2>Work Experience</h2>
+            
+            <div class="experience-item">
+                <div class="experience-period">2024 – Current</div>
+                <div class="experience-title">Security Officer (Casual)</div>
+                <div class="experience-company">I-Corp Security</div>
+                <ul class="experience-duties">
+                    <li>Ensured safety and order by monitoring guest activities and securing event areas</li>
+                    <li>Conducted access control, including verifying guest lists and managing entry points</li>
+                    <li>Provided clear and professional communication to assist guests and address concerns</li>
+                    <li>Responded promptly to incidents, resolving conflicts and maintaining a safe environment</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-period">2022 – 2023</div>
+                <div class="experience-title">Covid-19 Support Officer, Covid Screening Officer</div>
+                <div class="experience-company">Royal Melbourne Hospital</div>
+                <ul class="experience-duties">
+                    <li>Provided attentive support and guidance to staff during PPE donning and doffing procedures</li>
+                    <li>Safeguarded well-being by meticulously monitoring and enforcing PPE compliance</li>
+                    <li>Delivered exemplary customer service and warm welcome to hospital visitors</li>
+                    <li>Offered expert guidance through Entry Screening procedures</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-period">2022 – 2023</div>
+                <div class="experience-title">Mental Health Support Worker</div>
+                <div class="experience-company">Mclellan House Hostel</div>
+                <ul class="experience-duties">
+                    <li>Assisted residents with daily activities and supported engagement in social programs</li>
+                    <li>Facilitated recreational activities including board games, bingo, and meditation sessions</li>
+                    <li>Provided companionship and emotional support to residents</li>
+                    <li>Accompanied residents on outings and helped maintain family connections via video calls</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-period">2021 – 2022</div>
+                <div class="experience-title">Individual Support (Aged Care)</div>
+                <div class="experience-company">Australian Multi-Cultural Community Services</div>
+                <ul class="experience-duties">
+                    <li>Provided compassionate care and exceptional customer service to elderly clients</li>
+                    <li>Maintained client safety and implemented security protocols</li>
+                    <li>Assisted with domestic tasks and provided companionship</li>
+                    <li>Facilitated transportation and mobility assistance</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-period">2020 – 2021</div>
+                <div class="experience-title">Resident Support Officer</div>
+                <div class="experience-company">COVID 19 Quarantine Victoria (CQV)</div>
+                <ul class="experience-duties">
+                    <li>Ensured safe environment for quarantine residents</li>
+                    <li>Escorted travelers following strict Covid-safe protocols</li>
+                    <li>Facilitated approved activities while maintaining compliance</li>
+                    <li>Communicated effectively with empathy while maintaining safety protocols</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="certifications" class="content-section">
+            <h2>Certifications</h2>
+            <div class="certifications">
+                <div class="cert-item">
+                    <div>🚗</div>
+                    <div>Driver's Licence</div>
+                </div>
+                <div class="cert-item">
+                    <div>👶</div>
+                    <div>Working with Children Check</div>
+                </div>
+                <div class="cert-item">
+                    <div>🛡️</div>
+                    <div>National Police Check</div>
+                </div>
+            </div>
+            <div style="margin-top: 40px; text-align: center;">
+                <h3 style="color: #2c3e50; margin-bottom: 20px;">References</h3>
+                <p style="font-size: 18px; color: #666;">Available upon request</p>
+            </div>
+        </div>
     </div>
-  </header>
 
-  <div class="container">
-    <section id="objective" class="section">
-      <h2>Career Objective</h2>
-      <div class="career-objective">
-        Motivated and reliable community services graduate with hands-on placement experience and a strong foundation in client support, administration, and service coordination. Brings calm presence, strong organisational skills, and a deep respect for diverse communities.
-      </div>
-    </section>
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
 
-    <section id="education" class="section">
-      <h2>Education</h2>
-      <div class="education-item"><strong>2025 – Current:</strong> Diploma of Community Services (CHC52021)</div>
-      <div class="education-item"><strong>2024 – Current:</strong> Certificate III in Individual Support (Ageing, Disability)</div>
-      <div class="education-item"><strong>2024:</strong> Certificate II in Security Operations (CPP20218)</div>
-      <div class="education-item"><strong>2016:</strong> Bachelor of Architecture – Damascus University</div>
-    </section>
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
 
-    <section id="skills" class="section">
-      <h2>Key Skills</h2>
-      <div class="skills-grid">
-        <div class="skill-item">Client support in culturally diverse settings</div>
-        <div class="skill-item">Conflict resolution with empathy and respect</div>
-        <div class="skill-item">Case notes, data entry, admin tasks</div>
-        <div class="skill-item">Cross-cultural communication – English & Arabic</div>
-        <div class="skill-item">Knowledge of NDIS, WHS, and privacy compliance</div>
-        <div class="skill-item">Public transport awareness for client support</div>
-      </div>
-    </section>
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
 
-    <section id="work" class="section">
-      <h2>Work Experience</h2>
-      <div class="work-entry">
-        <strong>I-Corp Security</strong> – Security Officer (2024–Current)
-        <ul>
-          <li>Ensured safety and communication during public events</li>
-          <li>Managed entry points and resolved conflicts on site</li>
-        </ul>
-      </div>
-      <div class="work-entry">
-        <strong>Royal Melbourne Hospital</strong> – Covid Support Officer (2022–2023)
-        <ul>
-          <li>Guided PPE protocols and entry screening</li>
-          <li>Supported Occupational Therapists in client care</li>
-        </ul>
-      </div>
-    </section>
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
 
-    <section id="certifications" class="section">
-      <h2>Certifications</h2>
-      <div class="cert-item">Driver's Licence</div>
-      <div class="cert-item">Working with Children Check</div>
-      <div class="cert-item">National Police Check</div>
-    </section>
+        // Add smooth scrolling to top when section changes
+        document.querySelectorAll('.nav-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
 
-    <section id="references" class="section">
-      <h2>References</h2>
-      <p>Available upon request</p>
-    </section>
-  </div>
+        // Add subtle animations on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const header = document.querySelector('.header');
+            if (scrolled > 100) {
+                header.style.transform = 'translateY(-10px)';
+                header.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.2)';
+            } else {
+                header.style.transform = 'translateY(0)';
+                header.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.1)';
+            }
+        });
+    </script>
 </body>
 </html>
